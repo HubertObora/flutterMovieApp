@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'homepage.dart';
+import 'style.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: HomePage(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark()
+          .copyWith(scaffoldBackgroundColor: AppStyle.mainColor),
     );
   }
 }

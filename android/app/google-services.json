@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "93371101172",
+    "project_id": "skyflix-d62ac",
+    "storage_bucket": "skyflix-d62ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93371101172:android:058a3b36058f8fbc57d3a1",
+        "android_client_info": {
+          "package_name": "com.example.movieapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "93371101172-as9nmgolepo1l0m26p68bsii2aeb3p9h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1IvpzalU5Wd4iohIc84PQD0hADVg7800"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "93371101172-as9nmgolepo1l0m26p68bsii2aeb3p9h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
