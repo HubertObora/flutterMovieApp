@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:cool_nav/cool_nav.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/pages/actors.dart';
 import 'package:movieapp/pages/movies.dart';
@@ -24,8 +25,25 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  final List<Widget> _listOfPages = [Movies(), TvSeries(), Actors()];
+  bool isLogged = false;
+  String userEmail = '';
+  @override
+  void initState() {
+    //checkIfLogged();
+    super.initState();
+  }
 
+  // Future checkIfLogged() async {
+  //   FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  //     if (user != null) {
+  //       isLogged = true;
+  //       userEmail = user.email.toString().trim();
+  //     }
+  //   });
+  // }
+
+  final List<Widget> _listOfPages = [Movies(), TvSeries(), Actors()];
+  //final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +53,7 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
           centerTitle: true,
           title: Text(
-            'S K Y F L I X',
+            'S K Y W E B',
             style: AppStyle.ornamentText,
           ),
         ),
@@ -46,45 +64,98 @@ class _HomePageState extends State<HomePage> {
               children: [
                 DrawerHeader(
                     child: Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Text(
-                          'S K Y F L I X',
-                          style: AppStyle.ornamentText,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Zalogowany jako:'),
-                      ),
-                      Text('username')
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      'S K Y W E B',
+                      style: AppStyle.ornamentText,
+                    ),
                   ),
                 )),
-                ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text(
-                    'Konto',
-                    style: AppStyle.smallText,
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => LoginPage(),
-                    ));
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.star),
-                  title: Text(
-                    'Ulubione',
-                    style: AppStyle.smallText,
-                  ),
-                  onTap: () {
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Konto(),))
-                  },
-                )
+                StreamBuilder<User?>(
+                    stream: FirebaseAuth.instance.authStateChanges(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.hasData) {
+                        final user = FirebaseAuth.instance.currentUser!.email;
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Text(
+                                'Zalogowano jako:$user',
+                                style: AppStyle.smallText,
+                              ),
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.person),
+                              title: Text(
+                                'Konto',
+                                style: AppStyle.smallText,
+                              ),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => LoginPage(),
+                                ));
+                              },
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.star),
+                              title: Text(
+                                'Ulubione',
+                                style: AppStyle.smallText,
+                              ),
+                              onTap: () {
+                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Konto(),))
+                              },
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.remove_red_eye),
+                              title: Text(
+                                'Obejrzane',
+                                style: AppStyle.smallText,
+                              ),
+                              onTap: () {
+                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Konto(),))
+                              },
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.exit_to_app),
+                              title: Text(
+                                'Wyloguj',
+                                style: AppStyle.smallText,
+                              ),
+                              onTap: () {
+                                FirebaseAuth.instance.signOut();
+                              },
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Text(
+                                'Niezalogowano',
+                                style: AppStyle.smallText,
+                              ),
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.person),
+                              title: Text(
+                                'Zaloguj / Zarejestruj',
+                                style: AppStyle.smallText,
+                              ),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => LoginPage(),
+                                ));
+                              },
+                            ),
+                          ],
+                        );
+                      }
+                    }))
               ],
             ),
           ),

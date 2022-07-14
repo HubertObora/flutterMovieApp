@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../style.dart';
+
 class TvSeries extends StatefulWidget {
   const TvSeries({Key? key}) : super(key: key);
 
@@ -12,6 +14,21 @@ class TvSeries extends StatefulWidget {
 class _TvSeriesState extends State<TvSeries> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Column(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                'Seriale',
+                style: AppStyle.mainText,
+                textAlign: TextAlign.right,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

@@ -6,7 +6,7 @@ class AppStyle {
   static Color secondColor = const Color.fromARGB(255, 26, 46, 64);
   static Color whiteColor = Colors.white;
   static TextStyle mainText =
-      GoogleFonts.ptSans(fontSize: 24, color: Colors.white);
+      GoogleFonts.ptSans(fontSize: 32, color: Colors.white);
   static TextStyle ornamentText =
       GoogleFonts.cormorantSc(fontSize: 32, color: Colors.white);
   static TextStyle smallText =

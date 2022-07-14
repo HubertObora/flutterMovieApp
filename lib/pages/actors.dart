@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../style.dart';
+
 class Actors extends StatefulWidget {
   const Actors({Key? key}) : super(key: key);
 
@@ -12,6 +14,21 @@ class Actors extends StatefulWidget {
 class _ActorsState extends State<Actors> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Column(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                'Aktorzy',
+                style: AppStyle.mainText,
+                textAlign: TextAlign.right,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
