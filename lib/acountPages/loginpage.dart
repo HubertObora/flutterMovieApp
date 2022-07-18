@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/acountPages/registrationpage.dart';
 import 'package:movieapp/homepage.dart';
-import 'package:movieapp/pages/movies.dart';
 
 import '../style.dart';
 
@@ -18,6 +17,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,32 +32,26 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Text(
-                  'S K Y F L I X',
+                  'S K Y W E B',
                   style: AppStyle.ornamentText,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Email',
-                        prefixIcon: Icon(Icons.person))),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: TextField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Hasło',
-                        prefixIcon: Icon(Icons.lock))),
-              ),
+              TxtField(
+                  text: 'Email',
+                  icon: Icon(Icons.person),
+                  controller: _emailController),
+              TxtField(
+                  text: 'Hasło',
+                  icon: Icon(Icons.lock),
+                  controller: _passwordController),
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: TextButton(
-                  onPressed: signIn,
+                  onPressed: () {
+                    signIn();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (BuildContext context) => HomePage()));
+                  },
                   style: TextButton.styleFrom(
                       backgroundColor: AppStyle.secondColor,
                       textStyle: AppStyle.smallText),
@@ -91,13 +85,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future signIn() async {
+  Future<void> signIn() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim());
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => HomePage()));
     } on FirebaseAuthException catch (e) {
       showDialog(
         context: context,
@@ -116,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
           );
         },
       );
-    } catch (e) {
+    } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Błąd podczas próby logowania')));
     }

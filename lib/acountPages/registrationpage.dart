@@ -2,7 +2,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:movieapp/acountPages/loginpage.dart';
 
 import '../style.dart';
 
@@ -31,7 +30,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Text(
-                  'S K Y F L I X',
+                  'S K Y W E B',
                   style: AppStyle.ornamentText,
                 ),
               ),
@@ -86,7 +85,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  Future signUp() async {
+  Future<void> signUp() async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
@@ -135,10 +134,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
 }
 
 class TxtField extends StatelessWidget {
-  String text;
-  Icon icon;
-  TextEditingController controller;
-  TxtField(
+  final String text;
+  final Icon icon;
+  final TextEditingController controller;
+  const TxtField(
       {Key? key,
       required this.text,
       required this.icon,
