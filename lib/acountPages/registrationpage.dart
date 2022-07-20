@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../style.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -39,7 +39,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   icon: Icon(Icons.person),
                   controller: _loginController),
               TxtField(
-                  text: 'Hasło',
+                  text: 'password'.tr,
                   icon: Icon(Icons.lock),
                   controller: _passwordController),
               TxtField(
@@ -56,7 +56,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(50, 5, 50, 5),
                     child: Text(
-                      'Zarejestruj się',
+                      'register'.tr,
                       style: AppStyle.smallText,
                     ),
                   ),
@@ -64,7 +64,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Text('Masz już konto?'),
+                child: Text('have_account'.tr),
               ),
               GestureDetector(
                 onTap: (() {
@@ -73,7 +73,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
-                    'Zaloguj się',
+                    'log_in'.tr,
                     style: AppStyle.smallText,
                   ),
                 ),
@@ -94,15 +94,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Konto zostało założone!"),
-            content: Text('Teraz możesz się zalogować'),
+            title: Text('account_created'.tr),
+            content: Text('now_log_in'.tr),
             actions: [
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();
                 },
-                child: Text("OK"),
+                child: Text("Ok"),
               ),
             ],
           );
@@ -120,15 +120,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text("OK"),
+                child: Text("Ok"),
               ),
             ],
           );
         },
       );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Błąd podczas próby rejestracji')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('error_while_register'.tr)));
     }
   }
 }

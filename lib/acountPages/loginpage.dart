@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/acountPages/registrationpage.dart';
 import 'package:movieapp/homepage.dart';
-
+import 'package:get/get.dart';
 import '../style.dart';
 
 class LoginPage extends StatefulWidget {
@@ -37,11 +37,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               TxtField(
-                  text: 'Email',
+                  text: 'E-mail',
                   icon: Icon(Icons.person),
                   controller: _emailController),
               TxtField(
-                  text: 'Hasło',
+                  text: 'password'.tr,
                   icon: Icon(Icons.lock),
                   controller: _passwordController),
               Padding(
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(50, 5, 50, 5),
                     child: Text(
-                      'Zaloguj się',
+                      'log_in'.tr,
                       style: AppStyle.smallText,
                     ),
                   ),
@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Text('Nie masz konta?'),
+                child: Text('have_account?'.tr),
               ),
               GestureDetector(
                 onTap: (() {
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                 }),
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
-                  child: Text('Zarejestruj się', style: AppStyle.smallText),
+                  child: Text('register'.tr, style: AppStyle.smallText),
                 ),
               ),
             ],
@@ -109,8 +109,8 @@ class _LoginPageState extends State<LoginPage> {
         },
       );
     } catch (_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Błąd podczas próby logowania')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('error_while_login'.tr)));
     }
   }
 }

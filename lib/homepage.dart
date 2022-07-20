@@ -9,6 +9,7 @@ import 'package:movieapp/pages/movies.dart';
 import 'package:movieapp/pages/tvseries.dart';
 import 'package:movieapp/style.dart';
 import 'acountPages/loginpage.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -56,7 +57,23 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               )),
-              ShowDrawer()
+              ShowDrawer(),
+              ListTile(
+                leading: Icon(Icons.language),
+                title: Text(
+                  'change_language'.tr,
+                  style: AppStyle.smallText,
+                ),
+                onTap: () {
+                  if (Get.locale == Locale('pl', 'PL')) {
+                    Get.updateLocale(Locale('en', 'US'));
+                  } else {
+                    Get.updateLocale(Locale('pl', 'PL'));
+                  }
+                  //var locale = Locale('pl', 'PL');
+                  //Get.updateLocale(locale);
+                },
+              ),
             ],
           ),
         ),
@@ -97,14 +114,14 @@ class ShowDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
-                    'Zalogowano jako:$user',
+                    '${'sign_as'.tr}$user',
                     style: AppStyle.smallText,
                   ),
                 ),
                 ListTile(
                   leading: Icon(Icons.person),
                   title: Text(
-                    'Konto',
+                    'account'.tr,
                     style: AppStyle.smallText,
                   ),
                   onTap: () {
@@ -116,7 +133,7 @@ class ShowDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.star),
                   title: Text(
-                    'Ulubione',
+                    'favorite'.tr,
                     style: AppStyle.smallText,
                   ),
                   onTap: () {
@@ -126,7 +143,7 @@ class ShowDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.remove_red_eye),
                   title: Text(
-                    'Obejrzane',
+                    'watched'.tr,
                     style: AppStyle.smallText,
                   ),
                   onTap: () {
@@ -136,7 +153,7 @@ class ShowDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.exit_to_app),
                   title: Text(
-                    'Wyloguj',
+                    'sign_out'.tr,
                     style: AppStyle.smallText,
                   ),
                   onTap: () {
@@ -151,14 +168,14 @@ class ShowDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
-                    'Niezalogowano',
+                    'unlogged'.tr,
                     style: AppStyle.smallText,
                   ),
                 ),
                 ListTile(
                   leading: Icon(Icons.person),
                   title: Text(
-                    'Zaloguj / Zarejestruj',
+                    'login_logout'.tr,
                     style: AppStyle.smallText,
                   ),
                   onTap: () {

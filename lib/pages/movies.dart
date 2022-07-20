@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:movieapp/style.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 import 'package:movieapp/keys/keys.dart';
+import 'package:get/get.dart';
 
 class Movies extends StatefulWidget {
   const Movies({Key? key}) : super(key: key);
@@ -46,35 +47,17 @@ class _MoviesState extends State<Movies> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  'Trendujące Filmy',
-                  style: AppStyle.mainText,
-                ),
-              ),
+              MovieText(text: 'hello'.tr),
               SizedBox(
                 height: size.height * 0.25,
                 child: TrendingMovies(listOfMovies: trendingMovies),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  'Popularne Filmy',
-                  style: AppStyle.mainText,
-                ),
-              ),
+              MovieText(text: 'Popularne Filmy'),
               SizedBox(
                 height: size.height * 0.25,
                 child: TrendingMovies(listOfMovies: popukarMovies),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  'Najwyżej oceniane Filmy',
-                  style: AppStyle.mainText,
-                ),
-              ),
+              MovieText(text: 'Najwyżej oceniane Filmy'),
               SizedBox(
                 height: size.height * 0.25,
                 child: TrendingMovies(listOfMovies: topRatedMovies),
@@ -100,14 +83,15 @@ class TrendingMovies extends StatelessWidget {
       itemCount: listOfMovies.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 14),
           child: Container(
-            height: size.height / 3,
-            width: size.width / 3,
+            height: size.height / 3.0,
+            width: size.width / 3.0,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 1),
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: AppStyle.secondColor, width: 4),
               image: DecorationImage(
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
                 image: NetworkImage(
                   'https://image.tmdb.org/t/p/w500${listOfMovies[index]['poster_path']}',
                 ),
@@ -116,6 +100,21 @@ class TrendingMovies extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class MovieText extends StatelessWidget {
+  const MovieText({Key? key, required this.text}) : super(key: key);
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(14, 8, 0, 0),
+      child: Text(
+        text,
+        style: AppStyle.mainText,
+      ),
     );
   }
 }
