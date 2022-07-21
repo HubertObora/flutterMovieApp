@@ -65,13 +65,12 @@ class _HomePageState extends State<HomePage> {
                   style: AppStyle.smallText,
                 ),
                 onTap: () {
+                  //tu błąd (przeładowanie api)
                   if (Get.locale == Locale('pl', 'PL')) {
                     Get.updateLocale(Locale('en', 'US'));
                   } else {
                     Get.updateLocale(Locale('pl', 'PL'));
                   }
-                  //var locale = Locale('pl', 'PL');
-                  //Get.updateLocale(locale);
                 },
               ),
             ],

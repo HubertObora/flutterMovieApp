@@ -11,6 +11,8 @@ class AppStyle {
   );
   static TextStyle ornamentText =
       GoogleFonts.cormorantSc(fontSize: 32, color: Colors.white);
+  static TextStyle normalText =
+      GoogleFonts.ptSans(fontSize: 22, color: Colors.white);
   static TextStyle smallText =
       GoogleFonts.ptSans(fontSize: 18, color: Colors.white);
 }
