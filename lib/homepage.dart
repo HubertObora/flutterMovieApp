@@ -65,7 +65,6 @@ class _HomePageState extends State<HomePage> {
                   style: AppStyle.smallText,
                 ),
                 onTap: () {
-                  //tu błąd (przeładowanie api)
                   if (Get.locale == Locale('pl', 'PL')) {
                     Get.updateLocale(Locale('en', 'US'));
                   } else {
@@ -106,7 +105,6 @@ class ShowDrawer extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
-            //sprawdzic czy nie null
             final user = FirebaseAuth.instance.currentUser!.email;
             return Column(
               children: [

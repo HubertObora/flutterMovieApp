@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+//ignore_for_file: prefer_const_constructors
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movieapp/pages/details.dart';
+import 'package:movieapp/models/movies/film_data.dart';
+import 'package:movieapp/pages/moviedetails.dart';
+import 'package:movieapp/services/network_services/network_service.dart';
 import 'package:movieapp/style.dart';
-import 'package:tmdb_api/tmdb_api.dart';
-import 'package:movieapp/keys/keys.dart';
 import 'package:get/get.dart';
 
 class Movies extends StatefulWidget {
@@ -22,26 +22,19 @@ class _MoviesState extends State<Movies> {
     super.initState();
   }
 
-  List trendingMovies = [];
-  List topRatedMovies = [];
-  List popularMovies = [];
-  List nowPlayingMovies = [];
-  List upcomingMovies = [];
-  void loadMovies() async {
-    TMDB tmdb = TMDB(ApiKeys(apikey, accesKey),
-        logConfig: ConfigLogger(showLogs: true, showErrorLogs: true));
-    Map trendingResult = await tmdb.v3.trending.getTrending(page: 1);
-    Map topRatedResult = await tmdb.v3.movies.getTopRated(page: 2);
-    Map popularResult = await tmdb.v3.movies.getPopular(page: 3);
-    Map nowPlayingResult = await tmdb.v3.movies.getNowPlaying(page: 4);
-    Map upcomingResult = await tmdb.v3.movies.getUpcoming(page: 5);
-    setState(() {
-      trendingMovies = trendingResult['results'];
-      topRatedMovies = topRatedResult['results'];
-      popularMovies = popularResult['results'];
-      nowPlayingMovies = nowPlayingResult['results'];
-      upcomingMovies = upcomingResult['results'];
-    });
+  List<FilmData> listOfTrendingMovies = [],
+      listOfPopularMovies = [],
+      listOfTopRatedMovies = [],
+      listOfNowPlayingMovies = [],
+      listOfUpcomingMovies = [];
+
+  Future loadMovies() async {
+    listOfTrendingMovies = await NetworkService().getTrendingMovies();
+    listOfPopularMovies = await NetworkService().getPopularMovies();
+    listOfTopRatedMovies = await NetworkService().getTopRatedMovies();
+    listOfNowPlayingMovies = await NetworkService().getNowPlayingMovies();
+    listOfUpcomingMovies = await NetworkService().getUpcomingMovies();
+    setState(() {});
   }
 
   @override
@@ -57,27 +50,27 @@ class _MoviesState extends State<Movies> {
               MovieText(text: 'trending_movies'.tr),
               SizedBox(
                 height: size.height * 0.25,
-                child: TrendingMovies(listOfMovies: trendingMovies),
+                child: TrendingMovies(listOfMovies: listOfTrendingMovies),
               ),
               MovieText(text: 'popular_movies'.tr),
               SizedBox(
                 height: size.height * 0.25,
-                child: TrendingMovies(listOfMovies: popularMovies),
+                child: TrendingMovies(listOfMovies: listOfPopularMovies),
               ),
               MovieText(text: 'top_rated_movies'.tr),
               SizedBox(
                 height: size.height * 0.25,
-                child: TrendingMovies(listOfMovies: topRatedMovies),
+                child: TrendingMovies(listOfMovies: listOfTopRatedMovies),
               ),
               MovieText(text: 'now_playing_movies'.tr),
               SizedBox(
                 height: size.height * 0.25,
-                child: TrendingMovies(listOfMovies: nowPlayingMovies),
+                child: TrendingMovies(listOfMovies: listOfNowPlayingMovies),
               ),
               MovieText(text: 'upcoming_movies'.tr),
               SizedBox(
                 height: size.height * 0.25,
-                child: TrendingMovies(listOfMovies: upcomingMovies),
+                child: TrendingMovies(listOfMovies: listOfUpcomingMovies),
               ),
               SizedBox(
                 height: 10,
@@ -93,7 +86,7 @@ class _MoviesState extends State<Movies> {
 class TrendingMovies extends StatelessWidget {
   const TrendingMovies({Key? key, required this.listOfMovies})
       : super(key: key);
-  final List listOfMovies;
+  final List<FilmData> listOfMovies;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -106,13 +99,11 @@ class TrendingMovies extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 14),
           child: GestureDetector(
             onTap: () {
-              int filmId = listOfMovies[index]['id'];
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => MovieDetails(
-                    id: filmId,
-                    isFilm: true,
+                    id: listOfMovies[index].id,
                   ),
                 ),
               );
@@ -123,21 +114,20 @@ class TrendingMovies extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: AppStyle.secondColor, width: 4)),
-              //tu błąd podczas ładowania zdjęć
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl:
-                    'https://image.tmdb.org/t/p/w500${listOfMovies[index]['poster_path']}',
-                placeholder: (context, url) =>
-                    Center(child: Center(child: CircularProgressIndicator())),
+                imageUrl: NetworkService.urlToPhoto +
+                    listOfMovies[index].poster_path!,
+                placeholder: (context, url) => Center(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
           ),
         );
-        //    } else {
-        //   return Icon(Icons.error);
-        // }
       },
     );
   }

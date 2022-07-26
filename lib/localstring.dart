@@ -33,12 +33,19 @@ class LocalString extends Translations {
           'now_playing_movies': 'Now in cinemas',
           'upcoming_movies': 'Upcoming movies',
           'genre': 'Genre: ',
+          'production_country': 'Production country: ',
           'release_date': 'Release date: ',
           //Tv Series
           'popular_tvseries': 'Popular TV series',
           'top_rated_tvseries': 'Top rated TV series',
           'airing_tvseries': 'Airing today',
           'ontheair_tvseries': 'On the air',
+          //actors
+          'popular_actors': 'Popular Actors',
+          'date_of_birth': 'Date of birth:',
+          'gender': 'Gender:',
+          'place_of_birth': 'Place of birth:',
+          'biography': 'Biography:',
           //category
           'action': 'Action',
           'adventure': 'Adventure',
@@ -86,6 +93,7 @@ class LocalString extends Translations {
           'top_rated_movies': 'Najlepiej oceniane filmy',
           'genre': 'Gatunek: ',
           'release_date': 'Data premiery: ',
+          'production_country': 'Kraj produkcji: ',
           'now_playing_movies': 'Teraz w kinach',
           'upcoming_movies': 'Nadchodzące filmy',
           //Seriale
@@ -93,6 +101,12 @@ class LocalString extends Translations {
           'top_rated_tvseries': 'Najlepiej ocenianie',
           'airing_tvseries': 'Najczęściej oglądane',
           'ontheair_tvseries': 'Zyskujące popularność',
+          //aktorzy
+          'popular_actors': 'Popularni aktorzy',
+          'date_of_birth': 'Data urodzenia:',
+          'gender': 'Płeć:',
+          'place_of_birth': 'Miejsce urodzenia:',
+          'biography': 'Biografia:',
           //kategorie
           'action': 'Akcja',
           'adventure': 'Przygoda',

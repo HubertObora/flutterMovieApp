@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       translations: LocalString(),
-      locale: Locale('en', 'US'),
+      locale: Get.deviceLocale,
       home: HomePage(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark()

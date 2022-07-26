@@ -2,11 +2,11 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movieapp/pages/details.dart';
+import 'package:movieapp/models/tvseries/tvseries_data.dart';
+import 'package:movieapp/pages/tvseriesdetails.dart';
 import 'package:movieapp/style.dart';
-import 'package:tmdb_api/tmdb_api.dart';
-import 'package:movieapp/keys/keys.dart';
 import 'package:get/get.dart';
+import '../services/network_services/network_service.dart';
 
 class TvSeries extends StatefulWidget {
   const TvSeries({Key? key}) : super(key: key);
@@ -18,35 +18,21 @@ class TvSeries extends StatefulWidget {
 class _TvSeriesState extends State<TvSeries> {
   @override
   void initState() {
-    loadMovies();
+    loadTvSeries();
     super.initState();
   }
 
-  List topRatedMovies = [];
-  List popularMovies = [];
-  List nowPlayingMovies = [];
-  List upcomingMovies = [];
+  List<TvseriesData> topRatedTvseries = [],
+      popularTvseries = [],
+      airingTvseries = [],
+      onTheAirTvseries = [];
 
-  void loadMovies() async {
-    String locale = 'en';
-    if (Get.locale == Locale('pl', 'PL')) {
-      locale = 'pl';
-    } else {
-      locale = 'en';
-    }
-    TMDB tmdb = TMDB(ApiKeys(apikey, accesKey),
-        defaultLanguage: locale,
-        logConfig: ConfigLogger(showLogs: true, showErrorLogs: true));
-    Map topRatedResult = await tmdb.v3.tv.getTopRated(page: 2);
-    Map popularResult = await tmdb.v3.tv.getPopular(page: 1);
-    Map nowPlayingResult = await tmdb.v3.tv.getAiringToday(page: 4);
-    Map upcomingResult = await tmdb.v3.tv.getOnTheAir(page: 3);
-    setState(() {
-      topRatedMovies = topRatedResult['results'];
-      popularMovies = popularResult['results'];
-      nowPlayingMovies = nowPlayingResult['results'];
-      upcomingMovies = upcomingResult['results'];
-    });
+  Future loadTvSeries() async {
+    topRatedTvseries = await NetworkService().getTopRatedTvseries();
+    popularTvseries = await NetworkService().getPopularTvseries();
+    airingTvseries = await NetworkService().getAiringTvseries();
+    onTheAirTvseries = await NetworkService().getOnTheAirTvseries();
+    setState(() {});
   }
 
   @override
@@ -62,22 +48,22 @@ class _TvSeriesState extends State<TvSeries> {
               MovieText(text: 'popular_tvseries'.tr),
               SizedBox(
                 height: size.height * 0.15,
-                child: TrendingMovies(listOfMovies: popularMovies),
+                child: TrendingTvSeries(listOfTvSeries: topRatedTvseries),
               ),
               MovieText(text: 'top_rated_tvseries'.tr),
               SizedBox(
                 height: size.height * 0.15,
-                child: TrendingMovies(listOfMovies: topRatedMovies),
+                child: TrendingTvSeries(listOfTvSeries: popularTvseries),
               ),
               MovieText(text: 'airing_tvseries'.tr),
               SizedBox(
                 height: size.height * 0.15,
-                child: TrendingMovies(listOfMovies: nowPlayingMovies),
+                child: TrendingTvSeries(listOfTvSeries: airingTvseries),
               ),
               MovieText(text: 'ontheair_tvseries'.tr),
               SizedBox(
                 height: size.height * 0.15,
-                child: TrendingMovies(listOfMovies: upcomingMovies),
+                child: TrendingTvSeries(listOfTvSeries: onTheAirTvseries),
               ),
               SizedBox(
                 height: 10,
@@ -90,29 +76,28 @@ class _TvSeriesState extends State<TvSeries> {
   }
 }
 
-class TrendingMovies extends StatelessWidget {
-  const TrendingMovies({Key? key, required this.listOfMovies})
+class TrendingTvSeries extends StatelessWidget {
+  const TrendingTvSeries({Key? key, required this.listOfTvSeries})
       : super(key: key);
-  final List listOfMovies;
+  final List<TvseriesData> listOfTvSeries;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
-      itemCount: listOfMovies.length,
+      itemCount: listOfTvSeries.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14),
           child: GestureDetector(
             onTap: () {
-              int filmId = listOfMovies[index]['id'];
+              int filmId = listOfTvSeries[index].id;
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MovieDetails(
+                  builder: (context) => TvseriesDetails(
                     id: filmId,
-                    isFilm: false,
                   ),
                 ),
               );
@@ -123,21 +108,21 @@ class TrendingMovies extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: AppStyle.secondColor, width: 4)),
-              //tu błąd podczas ładowania zdjęć
+              //tu błąd podczas ładowania zdjęć czasem wyrzuci
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl:
-                    'https://image.tmdb.org/t/p/w500${listOfMovies[index]['poster_path']}',
-                placeholder: (context, url) =>
-                    Center(child: Center(child: CircularProgressIndicator())),
+                imageUrl: NetworkService.urlToPhoto +
+                    listOfTvSeries[index].backdrop_path!,
+                placeholder: (context, url) => Center(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
           ),
         );
-        //    } else {
-        //   return Icon(Icons.error);
-        // }
       },
     );
   }
