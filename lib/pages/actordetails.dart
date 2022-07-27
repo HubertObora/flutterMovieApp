@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movieapp/models/actors/actor_details_data.dart';
-import 'package:movieapp/services/network_services/network_service.dart';
+import 'package:movieapp/services/network_service.dart';
 import 'package:movieapp/style.dart';
 
 class ActorDetails extends StatefulWidget {
@@ -20,7 +20,7 @@ class _ActorDetailsState extends State<ActorDetails> {
   late ActorDetailsData details;
 
   Future loadActorDetails() async {
-    details = await NetworkService().getActorDetails(widget.id);
+    details = await NetworkService.getActorDetails(widget.id);
   }
 
   @override
@@ -45,11 +45,15 @@ class _ActorDetailsState extends State<ActorDetails> {
                     SizedBox(
                       width: size.width / 1.5,
                       height: size.height / 2,
-                      child: Image.network(
-                        NetworkService.urlToPhoto + details.profile_path!,
-                        fit: BoxFit.cover,
-                        height: size.height * 0.2,
-                      ),
+                      child: details.profile_path != null
+                          ? Image.network(
+                              NetworkService.urlToPhoto + details.profile_path!,
+                              fit: BoxFit.cover,
+                              height: size.height * 0.2,
+                            )
+                          : const Image(
+                              image: AssetImage('assets/no_image.png'),
+                            ),
                     ),
                     Text(
                       details.name,
@@ -75,28 +79,32 @@ class _ActorDetailsState extends State<ActorDetails> {
                         ),
                       ],
                     ),
-                    const Divider(
-                      thickness: 2,
-                    ),
-                    Text(
-                      'date_of_birth'.tr,
-                      style: AppStyle.normalText,
-                    ),
-                    Text(
-                      details.birthday!,
-                      style: AppStyle.normalBoldText,
-                    ),
-                    const Divider(
-                      thickness: 2,
-                    ),
-                    Text(
-                      'place_of_birth'.tr,
-                      style: AppStyle.normalText,
-                    ),
-                    Text(
-                      details.place_of_birth!,
-                      style: AppStyle.normalBoldText,
-                    ),
+                    if (details.birthday != null) ...[
+                      const Divider(
+                        thickness: 2,
+                      ),
+                      Text(
+                        'date_of_birth'.tr,
+                        style: AppStyle.normalText,
+                      ),
+                      Text(
+                        details.birthday!,
+                        style: AppStyle.normalBoldText,
+                      ),
+                      const Divider(
+                        thickness: 2,
+                      ),
+                    ],
+                    if (details.place_of_birth != null) ...[
+                      Text(
+                        'place_of_birth'.tr,
+                        style: AppStyle.normalText,
+                      ),
+                      Text(
+                        details.place_of_birth!,
+                        style: AppStyle.normalBoldText,
+                      ),
+                    ],
                     const Divider(
                       thickness: 2,
                     ),

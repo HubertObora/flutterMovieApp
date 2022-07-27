@@ -6,7 +6,7 @@ import 'package:movieapp/models/tvseries/tvseries_data.dart';
 import 'package:movieapp/pages/tvseriesdetails.dart';
 import 'package:movieapp/style.dart';
 import 'package:get/get.dart';
-import '../services/network_services/network_service.dart';
+import '../services/network_service.dart';
 
 class TvSeries extends StatefulWidget {
   const TvSeries({Key? key}) : super(key: key);
@@ -28,10 +28,10 @@ class _TvSeriesState extends State<TvSeries> {
       onTheAirTvseries = [];
 
   Future loadTvSeries() async {
-    topRatedTvseries = await NetworkService().getTopRatedTvseries();
-    popularTvseries = await NetworkService().getPopularTvseries();
-    airingTvseries = await NetworkService().getAiringTvseries();
-    onTheAirTvseries = await NetworkService().getOnTheAirTvseries();
+    topRatedTvseries = await NetworkService.getTopRatedTvseries();
+    popularTvseries = await NetworkService.getPopularTvseries();
+    airingTvseries = await NetworkService.getAiringTvseries();
+    onTheAirTvseries = await NetworkService.getOnTheAirTvseries();
     setState(() {});
   }
 
@@ -134,11 +134,10 @@ class MovieText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(14, 8, 0, 0),
-      child: Text(
-        text,
-        style: AppStyle.mainText,
-      ),
-    );
+        padding: const EdgeInsets.fromLTRB(14, 8, 0, 0),
+        child: Text(
+          text,
+          style: AppStyle.mainText,
+        ));
   }
 }

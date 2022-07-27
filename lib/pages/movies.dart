@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/models/movies/film_data.dart';
 import 'package:movieapp/pages/moviedetails.dart';
-import 'package:movieapp/services/network_services/network_service.dart';
+import 'package:movieapp/services/network_service.dart';
 import 'package:movieapp/style.dart';
 import 'package:get/get.dart';
 
@@ -29,11 +29,11 @@ class _MoviesState extends State<Movies> {
       listOfUpcomingMovies = [];
 
   Future loadMovies() async {
-    listOfTrendingMovies = await NetworkService().getTrendingMovies();
-    listOfPopularMovies = await NetworkService().getPopularMovies();
-    listOfTopRatedMovies = await NetworkService().getTopRatedMovies();
-    listOfNowPlayingMovies = await NetworkService().getNowPlayingMovies();
-    listOfUpcomingMovies = await NetworkService().getUpcomingMovies();
+    listOfTrendingMovies = await NetworkService.getTrendingMovies();
+    listOfPopularMovies = await NetworkService.getPopularMovies();
+    listOfTopRatedMovies = await NetworkService.getTopRatedMovies();
+    listOfNowPlayingMovies = await NetworkService.getNowPlayingMovies();
+    listOfUpcomingMovies = await NetworkService.getUpcomingMovies();
     setState(() {});
   }
 

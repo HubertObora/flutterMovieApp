@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/models/actors/actor_data.dart';
 import 'package:movieapp/pages/actordetails.dart';
-import 'package:movieapp/services/network_services/network_service.dart';
+import 'package:movieapp/services/network_service.dart';
 import 'package:movieapp/style.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +24,7 @@ class _ActorsState extends State<Actors> {
 
   List<ActorData> listOfPopularActors = [];
   Future loadActors() async {
-    listOfPopularActors = await NetworkService().getPopularActors();
+    listOfPopularActors = await NetworkService.getPopularActors();
     setState(() {});
   }
 
@@ -32,27 +32,32 @@ class _ActorsState extends State<Actors> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        body: SizedBox(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                'popular_actors'.tr,
-                style: AppStyle.mainText,
+      body: SizedBox(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'popular_actors'.tr,
+                  style: AppStyle.mainText,
+                ),
               ),
-            ),
-            SizedBox(
-              height: size.height * 0.7,
-              child: Expanded(
-                child: PopularActors(listOfActors: listOfPopularActors),
+              SizedBox(
+                height: size.height * 0.7,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: PopularActors(listOfActors: listOfPopularActors),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }
 
@@ -90,18 +95,22 @@ class PopularActors extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border:
                             Border.all(color: AppStyle.secondColor, width: 4)),
-                    //tu błąd podczas ładowania zdjęć
-                    child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl: NetworkService.urlToPhoto +
-                          listOfActors[index].profile_path!,
-                      placeholder: (context, url) => Center(
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
+                    child: listOfActors[index].profile_path != null
+                        ? CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: NetworkService.urlToPhoto +
+                                listOfActors[index].profile_path!,
+                            placeholder: (context, url) => Center(
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          )
+                        : const Image(
+                            image: AssetImage('assets/no_image.png'),
+                          ),
                   ),
                 ),
                 Text(

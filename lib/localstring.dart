@@ -33,6 +33,7 @@ class LocalString extends Translations {
           'now_playing_movies': 'Now in cinemas',
           'upcoming_movies': 'Upcoming movies',
           'genre': 'Genre: ',
+          'crew': 'Crew: ',
           'production_country': 'Production country: ',
           'release_date': 'Release date: ',
           //Tv Series
@@ -92,6 +93,7 @@ class LocalString extends Translations {
           'popular_movies': 'Popularne filmy',
           'top_rated_movies': 'Najlepiej oceniane filmy',
           'genre': 'Gatunek: ',
+          'crew': 'Obsada: ',
           'release_date': 'Data premiery: ',
           'production_country': 'Kraj produkcji: ',
           'now_playing_movies': 'Teraz w kinach',

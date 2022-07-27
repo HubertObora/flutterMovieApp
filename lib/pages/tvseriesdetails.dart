@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/models/tvseries/tvseries_details_data.dart';
-import 'package:movieapp/services/network_services/network_service.dart';
+import 'package:movieapp/services/network_service.dart';
 import 'package:movieapp/style.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +20,7 @@ class _MovieDetailsState extends State<TvseriesDetails> {
   late TvseriesDetailsData details;
 
   Future loadMovieDetails() async {
-    details = await NetworkService().getTvseriesDetails(widget.id);
+    details = await NetworkService.getTvseriesDetails(widget.id);
   }
 
   @override
@@ -45,10 +45,14 @@ class _MovieDetailsState extends State<TvseriesDetails> {
                     SizedBox(
                       width: double.infinity,
                       height: size.height / 3.5,
-                      child: Image.network(
-                        NetworkService.urlToPhoto + details.backdrop_path!,
-                        fit: BoxFit.cover,
-                      ),
+                      child: details.backdrop_path != null
+                          ? Image.network(
+                              NetworkService.urlToPhoto +
+                                  details.backdrop_path!,
+                              fit: BoxFit.cover,
+                            )
+                          : const Image(
+                              image: AssetImage('assets/no_image.png')),
                     ),
                     Text(
                       details.name,
@@ -82,51 +86,63 @@ class _MovieDetailsState extends State<TvseriesDetails> {
                       child: Row(
                         children: [
                           SizedBox(
-                              height: size.height / 4,
-                              width: size.width / 3,
-                              child: Image.network(
-                                NetworkService.urlToPhoto +
-                                    details.poster_path!,
-                                fit: BoxFit.cover,
-                              )),
+                            height: size.height / 4,
+                            width: size.width / 3,
+                            child: details.poster_path != null
+                                ? Image.network(
+                                    NetworkService.urlToPhoto +
+                                        details.poster_path!,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const Image(
+                                    image: AssetImage('assets/no_image.png'),
+                                  ),
+                          ),
                           const SizedBox(width: 30),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'genre'.tr,
-                                  style: AppStyle.normalText,
-                                ),
-                                Text(
-                                  Genres.listOfGenres[details.genres[0].id]
-                                      .toString()
-                                      .tr,
-                                  style: AppStyle.normalBoldText,
-                                ),
+                                if (details.genres.isNotEmpty) ...[
+                                  Text(
+                                    'genre'.tr,
+                                    style: AppStyle.normalText,
+                                  ),
+                                  Text(
+                                    Genres.listOfGenres[details.genres[0].id]
+                                        .toString()
+                                        .tr,
+                                    style: AppStyle.normalBoldText,
+                                  ),
+                                ],
                                 const SizedBox(
                                   height: 8,
                                 ),
-                                Text(
-                                  'release_date'.tr,
-                                  style: AppStyle.normalText,
-                                ),
-                                Text(
-                                  details.seasons[0].air_date.toString(),
-                                  style: AppStyle.normalBoldText,
-                                ),
+                                if (details.seasons.isNotEmpty) ...[
+                                  Text(
+                                    'release_date'.tr,
+                                    style: AppStyle.normalText,
+                                  ),
+                                  Text(
+                                    details.seasons[0].air_date.toString(),
+                                    style: AppStyle.normalBoldText,
+                                  ),
+                                ],
                                 const SizedBox(
                                   height: 8,
                                 ),
-                                Text(
-                                  'production_country'.tr,
-                                  style: AppStyle.normalText,
-                                ),
-                                Text(
-                                  details.production_countries[0].name
-                                      .toString(),
-                                  style: AppStyle.normalBoldText,
-                                ),
+                                if (details
+                                    .production_countries.isNotEmpty) ...[
+                                  Text(
+                                    'production_country'.tr,
+                                    style: AppStyle.normalText,
+                                  ),
+                                  Text(
+                                    details.production_countries[0].name
+                                        .toString(),
+                                    style: AppStyle.normalBoldText,
+                                  ),
+                                ],
                               ],
                             ),
                           ),
