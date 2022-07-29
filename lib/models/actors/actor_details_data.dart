@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'actor_details_data.g.dart';
@@ -9,18 +7,20 @@ class ActorDetailsData {
   final int id;
   final String name;
   final String? birthday;
-  final String? profile_path;
+  @JsonKey(name: 'profile_path')
+  final String? profilePath;
   final String biography;
-  final String? place_of_birth;
+  @JsonKey(name: 'place_of_birth')
+  final String? placeOfBirth;
   final double popularity;
 
   ActorDetailsData({
     required this.id,
     required this.name,
     required this.birthday,
-    required this.profile_path,
+    required this.profilePath,
     required this.biography,
-    required this.place_of_birth,
+    required this.placeOfBirth,
     required this.popularity,
   });
 

@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tvseries_data.g.dart';
@@ -7,11 +5,12 @@ part 'tvseries_data.g.dart';
 @JsonSerializable()
 class TvseriesData {
   final int id;
-  final String? backdrop_path;
+  @JsonKey(name: 'backdrop_path')
+  final String? backdropPath;
 
   TvseriesData({
     required this.id,
-    required this.backdrop_path,
+    required this.backdropPath,
   });
 
   factory TvseriesData.fromJson(Map<String, dynamic> json) =>

@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tvseries_seasons.g.dart';
@@ -7,11 +5,12 @@ part 'tvseries_seasons.g.dart';
 @JsonSerializable()
 class Seasons {
   final int id;
-  final String? air_date;
+  @JsonKey(name: 'air_date')
+  final String? airDate;
 
   Seasons({
     required this.id,
-    required this.air_date,
+    required this.airDate,
   });
 
   factory Seasons.fromJson(Map<String, dynamic> json) =>

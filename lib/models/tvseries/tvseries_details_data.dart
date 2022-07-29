@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:movieapp/models/movies/film_genres.dart';
 import 'package:movieapp/models/tvseries/tvseries_seasons.dart';
@@ -12,24 +10,28 @@ part 'tvseries_details_data.g.dart';
 class TvseriesDetailsData {
   final int id;
   final String name;
-  final String? backdrop_path;
-  final String? poster_path;
+  @JsonKey(name: 'backdrop_path')
+  final String? backdropPath;
+  @JsonKey(name: 'poster_path')
+  final String? posterPath;
   final List<FilmGenres> genres;
   final String overview;
-  final double vote_average;
+  @JsonKey(name: 'vote_average')
+  final double voteAverage;
   final List<Seasons> seasons;
-  final List<ProductionCountries> production_countries;
+  @JsonKey(name: 'production_countries')
+  final List<ProductionCountries> productionCountries;
 
   TvseriesDetailsData({
     required this.id,
     required this.name,
-    required this.backdrop_path,
-    required this.poster_path,
+    required this.backdropPath,
+    required this.posterPath,
     required this.genres,
     required this.overview,
-    required this.vote_average,
+    required this.voteAverage,
     required this.seasons,
-    required this.production_countries,
+    required this.productionCountries,
   });
 
   factory TvseriesDetailsData.fromJson(Map<String, dynamic> json) =>

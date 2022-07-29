@@ -8,11 +8,11 @@ part of 'tvseries_data.dart';
 
 TvseriesData _$TvseriesDataFromJson(Map<String, dynamic> json) => TvseriesData(
       id: json['id'] as int,
-      backdrop_path: json['backdrop_path'] as String?,
+      backdropPath: json['backdrop_path'] as String?,
     );
 
 Map<String, dynamic> _$TvseriesDataToJson(TvseriesData instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'backdrop_path': instance.backdrop_path,
+      'backdrop_path': instance.backdropPath,
     };

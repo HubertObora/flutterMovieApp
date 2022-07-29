@@ -3,12 +3,13 @@
 import 'package:cool_nav/cool_nav.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:movieapp/acountPages/accountdetails.dart';
-import 'package:movieapp/pages/actors.dart';
-import 'package:movieapp/pages/movies.dart';
-import 'package:movieapp/pages/tvseries.dart';
-import 'package:movieapp/style.dart';
-import 'acountPages/loginpage.dart';
+import 'package:movieapp/pages/accountdetailspage/accountdetails.dart';
+import 'package:movieapp/pages/actors/actors.dart';
+import 'package:movieapp/pages/movies/movies.dart';
+import 'package:movieapp/pages/tvseries/tvseries.dart';
+import 'package:movieapp/pages/homepage/search.dart';
+import 'package:movieapp/style/style.dart';
+import '../loginpage/loginpage.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,6 +42,14 @@ class _HomePageState extends State<HomePage> {
           'S K Y W E B',
           style: AppStyle.ornamentText,
         ),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.category)),
+          IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: CustomSearchDelegate());
+              },
+              icon: Icon(Icons.search))
+        ],
       ),
       drawer: Drawer(
         child: Container(

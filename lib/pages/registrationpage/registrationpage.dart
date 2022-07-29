@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../style.dart';
+import 'package:movieapp/services/firebase_service/firebase_service.dart';
+import 'package:movieapp/widgets/textfield.dart';
+import '../../style/style.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -15,6 +15,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _loginController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _passwordConfirmController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +37,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
               TxtField(
                   text: 'Login',
-                  icon: Icon(Icons.person),
+                  icon: const Icon(Icons.person),
                   controller: _loginController),
-              TxtField(
+              TxtFieldPassword(
                   text: 'password'.tr,
-                  icon: Icon(Icons.lock),
+                  icon: const Icon(Icons.lock),
                   controller: _passwordController),
+              TxtFieldPassword(
+                  text: 'confirm_password'.tr,
+                  icon: const Icon(Icons.lock),
+                  controller: _passwordConfirmController),
               TxtField(
                   text: 'E-mail',
-                  icon: Icon(Icons.email),
+                  icon: const Icon(Icons.email),
                   controller: _emailController),
               Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -86,71 +91,54 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Future<void> signUp() async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim());
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('account_created'.tr),
-            content: Text('now_log_in'.tr),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-                },
-                child: Text("Ok"),
-              ),
-            ],
-          );
-        },
-      );
-    } on FirebaseAuthException catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("Error!"),
-            content: Text(e.message.toString()),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text("Ok"),
-              ),
-            ],
-          );
-        },
-      );
-    } catch (e) {
+    if (_passwordController.text.trim() ==
+        _passwordConfirmController.text.trim()) {
+      try {
+        FirebaseService.signIn(
+            _emailController.text.trim(), _passwordController.text.trim());
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('account_created'.tr),
+              content: Text('now_log_in'.tr),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Ok"),
+                ),
+              ],
+            );
+          },
+        );
+      } on FirebaseAuthException catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("Error!"),
+              content: Text(e.message.toString()),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Ok"),
+                ),
+              ],
+            );
+          },
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('error_while_register'.tr)));
+      }
+    } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('error_while_register'.tr)));
+          .showSnackBar(SnackBar(content: Text('diffrent_passwords'.tr)));
     }
-  }
-}
-
-class TxtField extends StatelessWidget {
-  final String text;
-  final Icon icon;
-  final TextEditingController controller;
-  const TxtField(
-      {Key? key,
-      required this.text,
-      required this.icon,
-      required this.controller})
-      : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: TextField(
-          controller: controller,
-          decoration: InputDecoration(
-              border: OutlineInputBorder(), hintText: text, prefixIcon: icon)),
-    );
   }
 }

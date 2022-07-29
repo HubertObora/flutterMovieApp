@@ -3,10 +3,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/models/tvseries/tvseries_data.dart';
-import 'package:movieapp/pages/tvseriesdetails.dart';
-import 'package:movieapp/style.dart';
+import 'package:movieapp/pages/tvseries/tvseriesdetails.dart';
+import 'package:movieapp/services/tmdb_repository_service/repository_serive.dart';
+import 'package:movieapp/style/style.dart';
 import 'package:get/get.dart';
-import '../services/network_service.dart';
+import '../../services/tmdb_network_service/network_service.dart';
 
 class TvSeries extends StatefulWidget {
   const TvSeries({Key? key}) : super(key: key);
@@ -28,10 +29,10 @@ class _TvSeriesState extends State<TvSeries> {
       onTheAirTvseries = [];
 
   Future loadTvSeries() async {
-    topRatedTvseries = await NetworkService.getTopRatedTvseries();
-    popularTvseries = await NetworkService.getPopularTvseries();
-    airingTvseries = await NetworkService.getAiringTvseries();
-    onTheAirTvseries = await NetworkService.getOnTheAirTvseries();
+    topRatedTvseries = await RepositoryService.getTopRatedTvseries();
+    popularTvseries = await RepositoryService.getPopularTvseries();
+    airingTvseries = await RepositoryService.getAiringTvseries();
+    onTheAirTvseries = await RepositoryService.getOnTheAirTvseries();
     setState(() {});
   }
 
@@ -112,7 +113,7 @@ class TrendingTvSeries extends StatelessWidget {
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
                 imageUrl: NetworkService.urlToPhoto +
-                    listOfTvSeries[index].backdrop_path!,
+                    listOfTvSeries[index].backdropPath!,
                 placeholder: (context, url) => Center(
                   child: Center(
                     child: CircularProgressIndicator(),

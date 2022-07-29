@@ -1,17 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'film_data.dart';
+part of 'actor_credits_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FilmData _$FilmDataFromJson(Map<String, dynamic> json) => FilmData(
+ActorCreditsData _$ActorCreditsDataFromJson(Map<String, dynamic> json) =>
+    ActorCreditsData(
       id: json['id'] as int,
+      title: json['title'] as String?,
+      name: json['name'] as String?,
       posterPath: json['poster_path'] as String?,
     );
 
-Map<String, dynamic> _$FilmDataToJson(FilmData instance) => <String, dynamic>{
+Map<String, dynamic> _$ActorCreditsDataToJson(ActorCreditsData instance) =>
+    <String, dynamic>{
       'id': instance.id,
+      'title': instance.title,
+      'name': instance.name,
       'poster_path': instance.posterPath,
     };

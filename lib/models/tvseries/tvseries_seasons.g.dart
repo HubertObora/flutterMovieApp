@@ -8,10 +8,10 @@ part of 'tvseries_seasons.dart';
 
 Seasons _$SeasonsFromJson(Map<String, dynamic> json) => Seasons(
       id: json['id'] as int,
-      air_date: json['air_date'] as String?,
+      airDate: json['air_date'] as String?,
     );
 
 Map<String, dynamic> _$SeasonsToJson(Seasons instance) => <String, dynamic>{
       'id': instance.id,
-      'air_date': instance.air_date,
+      'air_date': instance.airDate,
     };

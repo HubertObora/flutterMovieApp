@@ -2,9 +2,9 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:movieapp/LocalString.dart';
-import 'homepage.dart';
-import 'style.dart';
+import 'utils/localstring.dart';
+import 'pages/homepage/homepage.dart';
+import 'style/style.dart';
 import 'package:get/get.dart';
 
 void main() async {

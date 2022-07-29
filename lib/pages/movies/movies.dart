@@ -3,9 +3,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/models/movies/film_data.dart';
-import 'package:movieapp/pages/moviedetails.dart';
-import 'package:movieapp/services/network_service.dart';
-import 'package:movieapp/style.dart';
+import 'package:movieapp/pages/movies/moviedetails.dart';
+import 'package:movieapp/services/tmdb_network_service/network_service.dart';
+import 'package:movieapp/services/tmdb_repository_service/repository_serive.dart';
+import 'package:movieapp/style/style.dart';
 import 'package:get/get.dart';
 
 class Movies extends StatefulWidget {
@@ -29,11 +30,11 @@ class _MoviesState extends State<Movies> {
       listOfUpcomingMovies = [];
 
   Future loadMovies() async {
-    listOfTrendingMovies = await NetworkService.getTrendingMovies();
-    listOfPopularMovies = await NetworkService.getPopularMovies();
-    listOfTopRatedMovies = await NetworkService.getTopRatedMovies();
-    listOfNowPlayingMovies = await NetworkService.getNowPlayingMovies();
-    listOfUpcomingMovies = await NetworkService.getUpcomingMovies();
+    listOfTrendingMovies = await RepositoryService.getTrendingMovies();
+    listOfPopularMovies = await RepositoryService.getPopularMovies();
+    listOfTopRatedMovies = await RepositoryService.getTopRatedMovies();
+    listOfNowPlayingMovies = await RepositoryService.getNowPlayingMovies();
+    listOfUpcomingMovies = await RepositoryService.getUpcomingMovies();
     setState(() {});
   }
 
@@ -116,8 +117,8 @@ class TrendingMovies extends StatelessWidget {
                   border: Border.all(color: AppStyle.secondColor, width: 4)),
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl: NetworkService.urlToPhoto +
-                    listOfMovies[index].poster_path!,
+                imageUrl:
+                    NetworkService.urlToPhoto + listOfMovies[index].posterPath!,
                 placeholder: (context, url) => Center(
                   child: Center(
                     child: CircularProgressIndicator(),

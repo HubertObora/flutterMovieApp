@@ -2,10 +2,12 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:movieapp/acountPages/registrationpage.dart';
-import 'package:movieapp/homepage.dart';
+import 'package:movieapp/pages/registrationpage/registrationpage.dart';
+import 'package:movieapp/pages/homepage/homepage.dart';
 import 'package:get/get.dart';
-import '../style.dart';
+import 'package:movieapp/services/firebase_service/firebase_service.dart';
+import 'package:movieapp/widgets/textfield.dart';
+import '../../style/style.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -40,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                   text: 'E-mail',
                   icon: Icon(Icons.person),
                   controller: _emailController),
-              TxtField(
+              TxtFieldPassword(
                   text: 'password'.tr,
                   icon: Icon(Icons.lock),
                   controller: _passwordController),
@@ -87,9 +89,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> signIn() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim());
+      await FirebaseService.signIn(
+          _emailController.text.trim(), _passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       showDialog(
         context: context,

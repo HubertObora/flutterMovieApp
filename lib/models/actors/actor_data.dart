@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'actor_data.g.dart';
@@ -8,12 +6,13 @@ part 'actor_data.g.dart';
 class ActorData {
   final int id;
   final String name;
-  final String? profile_path;
+  @JsonKey(name: 'profile_path')
+  final String? profilePath;
 
   ActorData({
     required this.id,
     required this.name,
-    required this.profile_path,
+    required this.profilePath,
   });
 
   factory ActorData.fromJson(Map<String, dynamic> json) =>

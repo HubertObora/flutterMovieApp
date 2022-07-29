@@ -1,19 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'actor_data.dart';
+part of 'cast_inmoviedetails_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ActorData _$ActorDataFromJson(Map<String, dynamic> json) => ActorData(
+CastInMovieDetailsData _$CastInMovieDetailsDataFromJson(
+        Map<String, dynamic> json) =>
+    CastInMovieDetailsData(
       id: json['id'] as int,
       name: json['name'] as String,
       profilePath: json['profile_path'] as String?,
+      character: json['character'] as String,
     );
 
-Map<String, dynamic> _$ActorDataToJson(ActorData instance) => <String, dynamic>{
+Map<String, dynamic> _$CastInMovieDetailsDataToJson(
+        CastInMovieDetailsData instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'profile_path': instance.profilePath,
+      'character': instance.character,
     };

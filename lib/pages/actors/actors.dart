@@ -3,14 +3,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/models/actors/actor_data.dart';
-import 'package:movieapp/pages/actordetails.dart';
-import 'package:movieapp/services/network_service.dart';
-import 'package:movieapp/style.dart';
+import 'package:movieapp/pages/actors/actordetails.dart';
+import 'package:movieapp/services/tmdb_network_service/network_service.dart';
 import 'package:get/get.dart';
+import 'package:movieapp/services/tmdb_repository_service/repository_serive.dart';
+
+import '../../style/style.dart';
 
 class Actors extends StatefulWidget {
   const Actors({Key? key}) : super(key: key);
-
   @override
   State<Actors> createState() => _ActorsState();
 }
@@ -24,7 +25,7 @@ class _ActorsState extends State<Actors> {
 
   List<ActorData> listOfPopularActors = [];
   Future loadActors() async {
-    listOfPopularActors = await NetworkService.getPopularActors();
+    listOfPopularActors = await RepositoryService.getPopularActors();
     setState(() {});
   }
 
@@ -95,11 +96,11 @@ class PopularActors extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border:
                             Border.all(color: AppStyle.secondColor, width: 4)),
-                    child: listOfActors[index].profile_path != null
+                    child: listOfActors[index].profilePath != null
                         ? CachedNetworkImage(
                             fit: BoxFit.cover,
                             imageUrl: NetworkService.urlToPhoto +
-                                listOfActors[index].profile_path!,
+                                listOfActors[index].profilePath!,
                             placeholder: (context, url) => Center(
                               child: Center(
                                 child: CircularProgressIndicator(),

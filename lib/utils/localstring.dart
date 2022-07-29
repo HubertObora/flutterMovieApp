@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:get/get.dart';
 
 class LocalString extends Translations {
@@ -18,12 +16,14 @@ class LocalString extends Translations {
           'change_language': 'Change Language',
           //account
           'password': 'Password',
+          'confirm_password': 'Confirm Password',
           'log_in': 'Log in',
           'register': 'Register',
           'have_account?': 'Do not have an account?',
           'have_account': 'Have an account?',
           'error_while_login': 'Error while trying to login',
           'error_while_register': 'Error while trying to register',
+          'diffrent_passwords': 'Passwords must be same',
           'account_created': 'Account created!',
           'now_log_in': 'You can log in now',
           //Films
@@ -33,7 +33,11 @@ class LocalString extends Translations {
           'now_playing_movies': 'Now in cinemas',
           'upcoming_movies': 'Upcoming movies',
           'genre': 'Genre: ',
+          'movie': 'Movie',
+          'tvseries': 'TV Series',
           'crew': 'Crew: ',
+          'cast': 'Cast: ',
+          'known_for': 'Known for: ',
           'production_country': 'Production country: ',
           'release_date': 'Release date: ',
           //Tv Series
@@ -80,12 +84,14 @@ class LocalString extends Translations {
           'change_language': 'Zmień język',
           //konto
           'password': 'Hasło',
+          'confirm_password': 'Potwierdź hasło',
           'log_in': 'Zaloguj się',
           'register': 'Zarejestruj się',
           'have_account?': 'Nie masz konta?',
           'have_account': 'Masz już konto?',
           'error_while_login': 'Błąd podczas próby logowania',
           'error_while_register': 'Błąd podczas próby rejestracji',
+          'diffrent_passwords': 'Hasła muszą być takie same',
           'account_created': 'Konto zostało założone!',
           'now_log_in': 'Teraz możesz się zalogować',
           //filmy
@@ -93,7 +99,11 @@ class LocalString extends Translations {
           'popular_movies': 'Popularne filmy',
           'top_rated_movies': 'Najlepiej oceniane filmy',
           'genre': 'Gatunek: ',
-          'crew': 'Obsada: ',
+          'cast': 'Obsada: ',
+          'crew': 'Twórcy: ',
+          'movie': 'Film',
+          'tvseries': 'Serial',
+          'known_for': 'Znany z: ',
           'release_date': 'Data premiery: ',
           'production_country': 'Kraj produkcji: ',
           'now_playing_movies': 'Teraz w kinach',

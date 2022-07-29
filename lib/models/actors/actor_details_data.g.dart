@@ -11,9 +11,9 @@ ActorDetailsData _$ActorDetailsDataFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       name: json['name'] as String,
       birthday: json['birthday'] as String?,
-      profile_path: json['profile_path'] as String?,
+      profilePath: json['profile_path'] as String?,
       biography: json['biography'] as String,
-      place_of_birth: json['place_of_birth'] as String?,
+      placeOfBirth: json['place_of_birth'] as String?,
       popularity: (json['popularity'] as num).toDouble(),
     );
 
@@ -22,8 +22,8 @@ Map<String, dynamic> _$ActorDetailsDataToJson(ActorDetailsData instance) =>
       'id': instance.id,
       'name': instance.name,
       'birthday': instance.birthday,
-      'profile_path': instance.profile_path,
+      'profile_path': instance.profilePath,
       'biography': instance.biography,
-      'place_of_birth': instance.place_of_birth,
+      'place_of_birth': instance.placeOfBirth,
       'popularity': instance.popularity,
     };
