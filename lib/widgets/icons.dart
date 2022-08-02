@@ -65,3 +65,35 @@ class IconShadow extends StatelessWidget {
     );
   }
 }
+
+class IconWatched extends StatelessWidget {
+  const IconWatched({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.0),
+      child: Icon(
+        Icons.remove_red_eye_outlined,
+        size: 35,
+        color: Colors.white,
+      ),
+    );
+  }
+}
+
+class IconFavorite extends StatelessWidget {
+  const IconFavorite({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.0),
+      child: Icon(
+        Icons.favorite_outline,
+        size: 35,
+        color: Colors.white,
+      ),
+    );
+  }
+}

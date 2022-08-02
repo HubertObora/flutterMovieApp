@@ -5,9 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/pages/accountdetailspage/accountdetails.dart';
 import 'package:movieapp/pages/actors/actors.dart';
+import 'package:movieapp/pages/favorite/favorite.dart';
 import 'package:movieapp/pages/movies/movies.dart';
+import 'package:movieapp/pages/search/searchbygenre.dart';
 import 'package:movieapp/pages/tvseries/tvseries.dart';
-import 'package:movieapp/pages/homepage/search.dart';
+import 'package:movieapp/pages/search/search.dart';
+import 'package:movieapp/pages/watchlist/watchlist.dart';
+import 'package:movieapp/services/firebase_service/firebase_service.dart';
 import 'package:movieapp/style/style.dart';
 import '../loginpage/loginpage.dart';
 import 'package:get/get.dart';
@@ -43,7 +47,13 @@ class _HomePageState extends State<HomePage> {
           style: AppStyle.ornamentText,
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.category)),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SearchByGenre(),
+                ));
+              },
+              icon: Icon(Icons.category)),
           IconButton(
               onPressed: () {
                 showSearch(context: context, delegate: CustomSearchDelegate());
@@ -111,10 +121,10 @@ class ShowDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
+        stream: FirebaseService.checkIfUserIsLoggedIn(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
-            final user = FirebaseAuth.instance.currentUser!.email;
+            final user = FirebaseService.auth.currentUser!.email;
             return Column(
               children: [
                 Padding(
@@ -143,17 +153,21 @@ class ShowDrawer extends StatelessWidget {
                     style: AppStyle.smallText,
                   ),
                   onTap: () {
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Konto(),))
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Favorite(),
+                    ));
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.remove_red_eye),
                   title: Text(
-                    'watched'.tr,
+                    'to_watch'.tr,
                     style: AppStyle.smallText,
                   ),
                   onTap: () {
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Konto(),))
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => WatchList(),
+                    ));
                   },
                 ),
                 ListTile(
@@ -163,7 +177,7 @@ class ShowDrawer extends StatelessWidget {
                     style: AppStyle.smallText,
                   ),
                   onTap: () {
-                    FirebaseAuth.instance.signOut();
+                    FirebaseService.signOut();
                   },
                 ),
               ],

@@ -9,7 +9,7 @@ import 'package:movieapp/widgets/divider.dart';
 
 import '../../services/tmdb_repository_service/repository_serive.dart';
 import '../../style/style.dart';
-import '../../widgets/circleshadowicon.dart';
+import '../../widgets/icons.dart';
 
 class ActorDetails extends StatefulWidget {
   final int id;
@@ -65,8 +65,10 @@ class _ActorDetailsState extends State<ActorDetails> {
                                       const CircularProgressIndicator(),
                                   errorWidget: (context, url, error) =>
                                       const Icon(Icons.error))
-                              : const Image(
-                                  image: AssetImage('assets/no_image.png'),
+                              : const Center(
+                                  child: Image(
+                                    image: AssetImage('assets/no_image.png'),
+                                  ),
                                 ),
                           const IconShadow(),
                         ],

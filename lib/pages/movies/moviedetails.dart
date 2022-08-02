@@ -4,7 +4,7 @@ import 'package:movieapp/models/movies/film_details_data.dart';
 import 'package:movieapp/services/tmdb_network_service/network_service.dart';
 import 'package:movieapp/style/style.dart';
 import 'package:get/get.dart';
-import 'package:movieapp/widgets/circleshadowicon.dart';
+import 'package:movieapp/widgets/icons.dart';
 import 'package:movieapp/widgets/crewandcast.dart';
 
 import '../../models/actors/cast_inmoviedetails_data.dart';
@@ -65,8 +65,10 @@ class _MovieDetailsState extends State<MovieDetails> {
                                     const CircularProgressIndicator(),
                                 errorWidget: (context, url, error) =>
                                     const Icon(Icons.error))
-                            : const Image(
-                                image: AssetImage('assets/no_image.png'),
+                            : const Center(
+                                child: Image(
+                                  image: AssetImage('assets/no_image.png'),
+                                ),
                               ),
                         const IconShadow(),
                       ],
@@ -79,6 +81,11 @@ class _MovieDetailsState extends State<MovieDetails> {
                     Text(
                       'movie'.tr,
                       style: AppStyle.smallText,
+                    ),
+                    const DividerThic2(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [IconFavorite(), IconWatched()],
                     ),
                     const DividerThic2(),
                     Row(

@@ -115,9 +115,18 @@ class NetworkService {
         as Map<String, dynamic>;
   }
 
-  static Future<Map<String, dynamic>> multiSearch(String query) async {
-    Map<String, dynamic> response =
-        await tmdb.v3.search.queryMulti(query) as Map<String, dynamic>;
-    return response;
+  static Future<Map<String, dynamic>> multiSearchResult(String query) async {
+    return await tmdb.v3.search.queryMulti(query) as Map<String, dynamic>;
+  }
+
+  static Future<Map<String, dynamic>> searchMoviesByGenre(String genre) async {
+    return await tmdb.v3.discover.getMovies(withGenres: genre)
+        as Map<String, dynamic>;
+  }
+
+  static Future<Map<String, dynamic>> searchTvSeriesByGenre(
+      String genre) async {
+    return await tmdb.v3.discover.getTvShows(withGenres: genre)
+        as Map<String, dynamic>;
   }
 }

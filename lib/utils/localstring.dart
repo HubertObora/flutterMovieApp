@@ -11,7 +11,7 @@ class LocalString extends Translations {
           'sign_as': 'Sign as: ',
           'account': 'Account',
           'favorite': 'Favorite',
-          'watched': 'Watched',
+          'to_watch': 'To watch',
           'sign_out': 'Sign out',
           'change_language': 'Change Language',
           //account
@@ -26,6 +26,10 @@ class LocalString extends Translations {
           'diffrent_passwords': 'Passwords must be same',
           'account_created': 'Account created!',
           'now_log_in': 'You can log in now',
+          'joined': 'Joined: ',
+          'about_version': 'About version',
+          'delete_account': 'Delete account',
+          'change_password': 'Change password',
           //search
           'search': 'Search...',
           'no_info': 'No information',
@@ -82,7 +86,7 @@ class LocalString extends Translations {
           'sign_as': 'Zalogowany jako: ',
           'account': 'Konto',
           'favorite': 'Ulubione',
-          'watched': 'Obejrzane',
+          'to_watch': 'Do obejrzenia',
           'sign_out': 'Wyloguj',
           'change_language': 'Zmień język',
           //konto
@@ -97,6 +101,10 @@ class LocalString extends Translations {
           'diffrent_passwords': 'Hasła muszą być takie same',
           'account_created': 'Konto zostało założone!',
           'now_log_in': 'Teraz możesz się zalogować',
+          'joined': 'Dołączył/a: ',
+          'about_version': 'O wersji',
+          'delete_account': 'Usuń konto',
+          'change_password': 'Zmień hasło',
           //search
           'search': 'Wyszukaj...',
           'no_info': 'Brak informacji',

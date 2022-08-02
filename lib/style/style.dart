@@ -13,6 +13,8 @@ class AppStyle {
       GoogleFonts.cormorantSc(fontSize: 32, color: Colors.white);
   static TextStyle normalText =
       GoogleFonts.ptSans(fontSize: 22, color: Colors.white);
+  static TextStyle normalRedText =
+      GoogleFonts.ptSans(fontSize: 22, color: Colors.red);
   static TextStyle normalBoldText = GoogleFonts.ptSans(
       fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold);
   static TextStyle smallText =

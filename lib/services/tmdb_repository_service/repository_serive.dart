@@ -213,10 +213,11 @@ class RepositoryService {
   }
 
   // search
-  static Future<List> getMovieOrTvseriesData(String query) async {
+  static Future<List> multiSearch(String query) async {
     List searchData = [];
     try {
-      Map<String, dynamic> response = await NetworkService.multiSearch(query);
+      Map<String, dynamic> response =
+          await NetworkService.multiSearchResult(query);
       searchData.addAll(List<FilmData>.from(
               response['results'].map((films) => FilmData.fromJson(films)))
           .where((element) => element.poster != null && element.name != null));
@@ -225,6 +226,25 @@ class RepositoryService {
           .where((element) => element.poster != null && element.name != null));
       searchData.addAll(List<ActorData>.from(
               response['results'].map((films) => ActorData.fromJson(films)))
+          .where((element) => element.poster != null && element.name != null));
+      return searchData;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  static Future<List> getGenreSearchResult(String id) async {
+    List searchData = [];
+    try {
+      Map<String, dynamic> response1 =
+          await NetworkService.searchMoviesByGenre(id);
+      Map<String, dynamic> response2 =
+          await NetworkService.searchTvSeriesByGenre(id);
+      searchData.addAll(List<FilmData>.from(
+              response1['results'].map((films) => FilmData.fromJson(films)))
+          .where((element) => element.poster != null && element.name != null));
+      searchData.addAll(List<TvseriesData>.from(
+              response2['results'].map((films) => TvseriesData.fromJson(films)))
           .where((element) => element.poster != null && element.name != null));
       return searchData;
     } catch (e) {

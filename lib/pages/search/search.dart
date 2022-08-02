@@ -16,7 +16,7 @@ import '../../style/style.dart';
 class CustomSearchDelegate extends SearchDelegate {
   List searchData = [];
   Future loadSearchResults(String query) async {
-    searchData = await RepositoryService.getMovieOrTvseriesData(query);
+    searchData = await RepositoryService.multiSearch(query);
     return searchData;
   }
 
@@ -25,6 +25,7 @@ class CustomSearchDelegate extends SearchDelegate {
     return [
       IconButton(
           onPressed: () {
+            searchData = [];
             query = '';
           },
           icon: Icon(Icons.clear))
@@ -136,6 +137,7 @@ class SearchResult extends StatelessWidget {
                               : '${listOfResults[index].name}',
                           textAlign: TextAlign.center,
                           style: AppStyle.normalText,
+                          maxLines: 2,
                         ),
                       )
                     : Text(

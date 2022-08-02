@@ -9,7 +9,7 @@ import 'package:movieapp/widgets/crewandcast.dart';
 import '../../models/actors/cast_inmoviedetails_data.dart';
 import '../../models/actors/crew_inmoviedetails_data.dart';
 import '../../services/tmdb_repository_service/repository_serive.dart';
-import '../../widgets/circleshadowicon.dart';
+import '../../widgets/icons.dart';
 import '../../widgets/divider.dart';
 
 class TvseriesDetails extends StatefulWidget {
@@ -65,8 +65,10 @@ class _MovieDetailsState extends State<TvseriesDetails> {
                                     const CircularProgressIndicator(),
                                 errorWidget: (context, url, error) =>
                                     const Icon(Icons.error))
-                            : const Image(
-                                image: AssetImage('assets/no_image.png'),
+                            : const Center(
+                                child: Image(
+                                  image: AssetImage('assets/no_image.png'),
+                                ),
                               ),
                         const IconShadow()
                       ],
