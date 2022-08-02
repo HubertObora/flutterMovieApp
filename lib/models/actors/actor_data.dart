@@ -5,14 +5,14 @@ part 'actor_data.g.dart';
 @JsonSerializable()
 class ActorData {
   final int id;
-  final String name;
+  final String? name;
   @JsonKey(name: 'profile_path')
-  final String? profilePath;
+  final String? poster;
 
   ActorData({
     required this.id,
     required this.name,
-    required this.profilePath,
+    required this.poster,
   });
 
   factory ActorData.fromJson(Map<String, dynamic> json) =>

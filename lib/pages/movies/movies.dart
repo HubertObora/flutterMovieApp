@@ -110,23 +110,26 @@ class TrendingMovies extends StatelessWidget {
               );
             },
             child: Container(
-              height: size.height / 3.0,
-              width: size.width / 3.0,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: AppStyle.secondColor, width: 4)),
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl:
-                    NetworkService.urlToPhoto + listOfMovies[index].posterPath!,
-                placeholder: (context, url) => Center(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-              ),
-            ),
+                height: size.height / 3.0,
+                width: size.width / 3.0,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: AppStyle.secondColor, width: 4)),
+                child: listOfMovies[index].poster != null
+                    ? CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: NetworkService.urlToPhoto +
+                            listOfMovies[index].poster!,
+                        placeholder: (context, url) => Center(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      )
+                    : const Image(
+                        image: AssetImage('assets/no_image.png'),
+                      )),
           ),
         );
       },

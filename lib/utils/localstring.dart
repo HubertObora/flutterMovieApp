@@ -26,6 +26,9 @@ class LocalString extends Translations {
           'diffrent_passwords': 'Passwords must be same',
           'account_created': 'Account created!',
           'now_log_in': 'You can log in now',
+          //search
+          'search': 'Search...',
+          'no_info': 'No information',
           //Films
           'trending_movies': 'Trending movies',
           'popular_movies': 'Popular movies',
@@ -94,6 +97,9 @@ class LocalString extends Translations {
           'diffrent_passwords': 'Hasła muszą być takie same',
           'account_created': 'Konto zostało założone!',
           'now_log_in': 'Teraz możesz się zalogować',
+          //search
+          'search': 'Wyszukaj...',
+          'no_info': 'Brak informacji',
           //filmy
           'trending_movies': 'Trendujące filmy',
           'popular_movies': 'Popularne filmy',

@@ -161,8 +161,8 @@ class Crew extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: Text(
-                          listOfActors[index].name.length > 15
-                              ? '${listOfActors[index].name.substring(0, 14)}... as'
+                          listOfActors[index].name.length > 17
+                              ? '${listOfActors[index].name.substring(0, 16)}...'
                               : '${listOfActors[index].name} as',
                           style: AppStyle.smallText,
                         ),

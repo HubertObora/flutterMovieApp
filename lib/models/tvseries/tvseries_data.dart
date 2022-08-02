@@ -5,12 +5,17 @@ part 'tvseries_data.g.dart';
 @JsonSerializable()
 class TvseriesData {
   final int id;
+  final String? name;
   @JsonKey(name: 'backdrop_path')
-  final String? backdropPath;
+  final String? backdropPoster;
+  @JsonKey(name: 'poster_path')
+  final String? poster;
 
   TvseriesData({
     required this.id,
-    required this.backdropPath,
+    required this.name,
+    required this.backdropPoster,
+    required this.poster,
   });
 
   factory TvseriesData.fromJson(Map<String, dynamic> json) =>

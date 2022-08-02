@@ -96,11 +96,11 @@ class PopularActors extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border:
                             Border.all(color: AppStyle.secondColor, width: 4)),
-                    child: listOfActors[index].profilePath != null
+                    child: listOfActors[index].poster != null
                         ? CachedNetworkImage(
                             fit: BoxFit.cover,
                             imageUrl: NetworkService.urlToPhoto +
-                                listOfActors[index].profilePath!,
+                                listOfActors[index].poster!,
                             placeholder: (context, url) => Center(
                               child: Center(
                                 child: CircularProgressIndicator(),
@@ -115,7 +115,7 @@ class PopularActors extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  listOfActors[index].name,
+                  listOfActors[index].name!,
                   textAlign: TextAlign.center,
                   style: AppStyle.normalText,
                 )

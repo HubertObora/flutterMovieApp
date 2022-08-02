@@ -9,6 +9,7 @@ import 'package:movieapp/widgets/crewandcast.dart';
 import '../../models/actors/cast_inmoviedetails_data.dart';
 import '../../models/actors/crew_inmoviedetails_data.dart';
 import '../../services/tmdb_repository_service/repository_serive.dart';
+import '../../widgets/circleshadowicon.dart';
 import '../../widgets/divider.dart';
 
 class TvseriesDetails extends StatefulWidget {
@@ -54,17 +55,22 @@ class _MovieDetailsState extends State<TvseriesDetails> {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    details?.backdropPath != null
-                        ? CachedNetworkImage(
-                            imageUrl: NetworkService.urlToPhoto +
-                                details!.backdropPath!,
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error))
-                        : const Image(
-                            image: AssetImage('assets/no_image.png'),
-                          ),
+                    Stack(
+                      children: [
+                        details?.backdropPath != null
+                            ? CachedNetworkImage(
+                                imageUrl: NetworkService.urlToPhoto +
+                                    details!.backdropPath!,
+                                placeholder: (context, url) =>
+                                    const CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error))
+                            : const Image(
+                                image: AssetImage('assets/no_image.png'),
+                              ),
+                        const IconShadow()
+                      ],
+                    ),
                     Text(
                       details!.name,
                       style: AppStyle.mainText,
@@ -103,10 +109,13 @@ class _MovieDetailsState extends State<TvseriesDetails> {
                                 ? CachedNetworkImage(
                                     imageUrl: NetworkService.urlToPhoto +
                                         details!.posterPath!,
-                                    placeholder: (context, url) =>
-                                        const CircularProgressIndicator(),
+                                    placeholder: (context, url) => const Center(
+                                        child: CircularProgressIndicator()),
                                     errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error))
+                                        const Image(
+                                          image:
+                                              AssetImage('assets/no_image.png'),
+                                        ))
                                 : const Image(
                                     image: AssetImage('assets/no_image.png'),
                                   ),
@@ -165,32 +174,38 @@ class _MovieDetailsState extends State<TvseriesDetails> {
                         ],
                       ),
                     ),
-                    const DividerThic2(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        details!.overview.toString(),
-                        style: AppStyle.smallText,
+                    if (details!.overview.isNotEmpty) ...[
+                      const DividerThic2(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          details!.overview.toString(),
+                          style: AppStyle.smallText,
+                        ),
                       ),
-                    ),
-                    const DividerThic2(),
-                    Text(
-                      'cast'.tr,
-                      style: AppStyle.normalBoldText,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.3,
-                      child: Cast(listOfActors: cast),
-                    ),
-                    const DividerThic2(),
-                    Text(
-                      'crew'.tr,
-                      style: AppStyle.normalBoldText,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.3,
-                      child: Crew(listOfActors: crew),
-                    ),
+                    ],
+                    if (cast.isNotEmpty) ...[
+                      const DividerThic2(),
+                      Text(
+                        'cast'.tr,
+                        style: AppStyle.normalBoldText,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.3,
+                        child: Cast(listOfActors: cast),
+                      ),
+                    ],
+                    if (crew.isNotEmpty) ...[
+                      const DividerThic2(),
+                      Text(
+                        'crew'.tr,
+                        style: AppStyle.normalBoldText,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.3,
+                        child: Crew(listOfActors: crew),
+                      ),
+                    ],
                   ],
                 ),
               );

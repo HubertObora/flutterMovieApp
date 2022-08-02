@@ -211,5 +211,24 @@ class RepositoryService {
       return [];
     }
   }
+
   // search
+  static Future<List> getMovieOrTvseriesData(String query) async {
+    List searchData = [];
+    try {
+      Map<String, dynamic> response = await NetworkService.multiSearch(query);
+      searchData.addAll(List<FilmData>.from(
+              response['results'].map((films) => FilmData.fromJson(films)))
+          .where((element) => element.poster != null && element.name != null));
+      searchData.addAll(List<TvseriesData>.from(
+              response['results'].map((films) => TvseriesData.fromJson(films)))
+          .where((element) => element.poster != null && element.name != null));
+      searchData.addAll(List<ActorData>.from(
+              response['results'].map((films) => ActorData.fromJson(films)))
+          .where((element) => element.poster != null && element.name != null));
+      return searchData;
+    } catch (e) {
+      return [];
+    }
+  }
 }

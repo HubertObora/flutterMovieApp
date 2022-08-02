@@ -8,10 +8,12 @@ part of 'film_data.dart';
 
 FilmData _$FilmDataFromJson(Map<String, dynamic> json) => FilmData(
       id: json['id'] as int,
-      posterPath: json['poster_path'] as String?,
+      name: json['title'] as String?,
+      poster: json['poster_path'] as String?,
     );
 
 Map<String, dynamic> _$FilmDataToJson(FilmData instance) => <String, dynamic>{
       'id': instance.id,
-      'poster_path': instance.posterPath,
+      'title': instance.name,
+      'poster_path': instance.poster,
     };

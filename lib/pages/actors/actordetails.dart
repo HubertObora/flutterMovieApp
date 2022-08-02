@@ -9,6 +9,7 @@ import 'package:movieapp/widgets/divider.dart';
 
 import '../../services/tmdb_repository_service/repository_serive.dart';
 import '../../style/style.dart';
+import '../../widgets/circleshadowicon.dart';
 
 class ActorDetails extends StatefulWidget {
   final int id;
@@ -53,16 +54,23 @@ class _ActorDetailsState extends State<ActorDetails> {
                   children: [
                     SizedBox(
                       width: size.width / 1.5,
-                      height: size.height / 2.5,
-                      child: details!.profilePath != null
-                          ? Image.network(
-                              NetworkService.urlToPhoto + details!.profilePath!,
-                              fit: BoxFit.cover,
-                              height: size.height * 0.2,
-                            )
-                          : const Image(
-                              image: AssetImage('assets/no_image.png'),
-                            ),
+                      height: size.height / 2,
+                      child: Stack(
+                        children: [
+                          details?.profilePath != null
+                              ? CachedNetworkImage(
+                                  imageUrl: NetworkService.urlToPhoto +
+                                      details!.profilePath!,
+                                  placeholder: (context, url) =>
+                                      const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error))
+                              : const Image(
+                                  image: AssetImage('assets/no_image.png'),
+                                ),
+                          const IconShadow(),
+                        ],
+                      ),
                     ),
                     Text(
                       details!.name,

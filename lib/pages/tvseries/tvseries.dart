@@ -104,24 +104,26 @@ class TrendingTvSeries extends StatelessWidget {
               );
             },
             child: Container(
-              height: size.height / 4.0,
-              width: size.width / 1.8,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: AppStyle.secondColor, width: 4)),
-              //tu błąd podczas ładowania zdjęć czasem wyrzuci
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: NetworkService.urlToPhoto +
-                    listOfTvSeries[index].backdropPath!,
-                placeholder: (context, url) => Center(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-              ),
-            ),
+                height: size.height / 4.0,
+                width: size.width / 1.8,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: AppStyle.secondColor, width: 4)),
+                child: listOfTvSeries[index].backdropPoster != null
+                    ? CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: NetworkService.urlToPhoto +
+                            listOfTvSeries[index].backdropPoster!,
+                        placeholder: (context, url) => Center(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      )
+                    : const Image(
+                        image: AssetImage('assets/no_image.png'),
+                      )),
           ),
         );
       },

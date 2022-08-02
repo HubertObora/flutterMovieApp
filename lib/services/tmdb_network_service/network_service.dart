@@ -118,7 +118,6 @@ class NetworkService {
   static Future<Map<String, dynamic>> multiSearch(String query) async {
     Map<String, dynamic> response =
         await tmdb.v3.search.queryMulti(query) as Map<String, dynamic>;
-    //print(response);
     return response;
   }
 }
